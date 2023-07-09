@@ -30,6 +30,7 @@ namespace MvcStartApp.Models
             await _context.SaveChangesAsync();
         }
 
+      
 
         public async Task<User[]> GetUsers()
         {

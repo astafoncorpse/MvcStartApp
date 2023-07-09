@@ -18,21 +18,14 @@ namespace MvcStartApp.Models
 
         public async Task AddRequest(Request request)
         {
-
-
             // Добавление информации
             var entry = _repo.Entry(request);
             if (entry.State == EntityState.Detached)
-                await _repo.Requests.AddAsync(request);
+                await _repo.RequestTable.AddAsync(request);
 
             // Сохранение изенений
             await _repo.SaveChangesAsync();
         }
-        public async Task<Request[]> GetRequests()
-        {
-     
-            return await _repo.Requests.ToArrayAsync();
-        }
-
+       
     }
 }
