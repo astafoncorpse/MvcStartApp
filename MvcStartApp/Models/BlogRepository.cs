@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MvcStartApp.Models.Db;
+using System;
 using System.Threading.Tasks;
 
 namespace MvcStartApp.Models
@@ -17,6 +18,9 @@ namespace MvcStartApp.Models
 
         public async Task AddUser(User user)
         {
+            user.JoinDate = DateTime.Now;
+            user.Id = Guid.NewGuid();
+
             // Добавление пользователя
             var entry = _context.Entry(user);
             if (entry.State == EntityState.Detached)
@@ -25,5 +29,14 @@ namespace MvcStartApp.Models
             // Сохранение изенений
             await _context.SaveChangesAsync();
         }
+
+
+        public async Task<User[]> GetUsers()
+        {
+            // Получим всех активных пользователей
+            return await _context.Users.ToArrayAsync();
+        }
+       
+
     }
 }

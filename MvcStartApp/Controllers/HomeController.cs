@@ -29,8 +29,8 @@ namespace MvcStartApp.Controllers
             var newUser = new User()
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Andrey",
-                LastName = "Petrov",
+                FirstName = "Roman",
+                LastName = "Brazhnik",
                 JoinDate = DateTime.Now
             };
 
@@ -47,6 +47,12 @@ namespace MvcStartApp.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Authors()
+        {
+            var authors = await _repo.GetUsers();
+            return View(authors);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

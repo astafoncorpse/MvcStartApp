@@ -29,9 +29,14 @@ namespace MvcStartApp
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
-            // регистрация сервиса репозитория для взаимодействия с базой данных
-            services.AddSingleton<IBlogRepository, BlogRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddTransient<IBlogRepository, BlogRepository>();
+
+            services.AddDbContext<RequestContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<IRequestRepository, RequestRepository>();
+            services.AddTransient<IRequestRepository,RequestRepository>();
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
