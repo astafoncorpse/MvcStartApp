@@ -32,10 +32,10 @@ namespace MvcStartApp
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddTransient<IBlogRepository, BlogRepository>();
 
-            services.AddDbContext<RequestContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
+            string reqRepoConnection = Configuration.GetConnectionString("ReqRepoConnection");
+            services.AddDbContext<RequestContext>(options => options.UseSqlServer(reqRepoConnection), ServiceLifetime.Singleton);
             services.AddSingleton<IRequestRepository, RequestRepository>();
-            services.AddTransient<IRequestRepository, RequestRepository>();
-
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,7 @@
 using MvcStartApp.Models.Db;
 using System;
 using System.Threading.Tasks;
+using static MvcStartApp.Models.BlogRepository;
 
 namespace MvcStartApp.Models
 {
@@ -9,11 +10,12 @@ namespace MvcStartApp.Models
     {
         // ссылка на контекст
         private readonly BlogContext _context;
-
+       
         // Метод-конструктор для инициализации
-        public BlogRepository(BlogContext context)
+        public BlogRepository(BlogContext context )
         {
             _context = context;
+           
         }
 
         public async Task AddUser(User user)
@@ -29,15 +31,14 @@ namespace MvcStartApp.Models
             // Сохранение изенений
             await _context.SaveChangesAsync();
         }
+       
 
-      
 
         public async Task<User[]> GetUsers()
         {
             // Получим всех активных пользователей
             return await _context.Users.ToArrayAsync();
         }
-       
-
+        
     }
 }

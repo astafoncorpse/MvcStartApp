@@ -7,7 +7,6 @@ namespace MvcStartApp.Models
     {
         Task AddUser(User user);
         Task<User[]> GetUsers();
-       
 
     }
 }

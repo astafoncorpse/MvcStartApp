@@ -7,25 +7,33 @@ namespace MvcStartApp.Models
 {
     public class RequestRepository : IRequestRepository
     {
-        // ссылка на контекст
-        private readonly RequestContext _repo;
+        private readonly RequestContext _request;
 
-        // Метод-конструктор для инициализации
-        public RequestRepository(RequestContext repo)
+        public RequestRepository(RequestContext request)
         {
-            _repo = repo;
+            _request = request;
         }
 
         public async Task AddRequest(Request request)
         {
+
+
             // Добавление информации
-            var entry = _repo.Entry(request);
+            var entry = _request.Entry(request);
             if (entry.State == EntityState.Detached)
-                await _repo.RequestTable.AddAsync(request);
+                await _request.RequestTable.AddAsync(request);
 
             // Сохранение изенений
-            await _repo.SaveChangesAsync();
+            await _request.SaveChangesAsync();
+
         }
-       
+        public async Task<Request[]> GetRequests()
+        {
+
+            return await _request.RequestTable.ToArrayAsync();
+        }
+
+
+
     }
 }
